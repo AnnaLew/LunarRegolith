@@ -1,0 +1,4 @@
+
+# Ignore macOS resource-fork “AppleDouble” files
+._*
+.DS_Store
