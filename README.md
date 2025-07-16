@@ -17,7 +17,7 @@ The goal of this study is to identify the genes that have a causal relationship 
 
 ### Step 1: Creation of single-plant images
 
-To properly proceed with the next step, each image must contain only one plant. Since the images available in OSDR have seven plants each, I had to manually remove all but one plant for each photo. To achieve this, I used [Photoroom's AI retouch feature](https://www.photoroom.com/tools/remove-object-from-photo). This way, I ended up with 4 × 7 = 28 photos. 
+To properly proceed with the next step, each image must contain only one plant. Since the images available in OSDR have seven plants each, I had to manually remove all but one plant for each photo. To achieve this, I used [Photoroom's AI retouch feature](https://www.photoroom.com/tools/remove-object-from-photo). This way, I ended up with 4 × 7 = 28 photos. You can see the original and edited images in SOAPP/images. 
 
 ### Step 2: SOAPP analysis
 
@@ -25,7 +25,7 @@ To perform a detailed analysis of the sizes and color compositions of the plants
 
 #### Output 
 
-I saved all the outputs in two csv files. Here's an explanation of what is in them:
+I saved all the outputs in two csv files. You can find them in SOAPP/output. Here's an explanation of what is in them:
 * **Results.csv** contains all the data regarding the size of the plants.
 * **Color_results.csv** contains all the data regarding the color of the plants.
 
