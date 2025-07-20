@@ -25,13 +25,44 @@ To perform a detailed analysis of the sizes and color compositions of the plants
 
 #### Output 
 
-I saved all the outputs in two csv files. You can find them in SOAPP/output. Here's an explanation of what is in them:
+I saved all the outputs in two csv files. You can find them in the SOAPP/output directory. Here's an explanation of what is in them:
 * **Results.csv** contains all the data regarding the size of the plants.
 * **Color_results.csv** contains all the data regarding the color of the plants.
 
 ### Step 3: Matching SOAPP output with differential gene expression data
 
-TBD
+SOAPP/output/images_to_sequencing.csv is the file that matches SOAPP output with differential gene expression data, i.e., the GSM numbers.
+
+**How did I match them?**
+
+I downloaded the metadata zip file (OSD-476_metadata_OSD-476-ISA.zip) from the [OSDR repository](https://osdr.nasa.gov/bio/repo/data/studies/OSD-476). The s_OSD-476.txt file allowed me to associate the GSM numbers with their corresponding lunar regolith type (JSC-1A, Apollo 11, Apollo 12, and Apollo 17). This enabled me to link the Apollo regolith samples directly to their GSM identifiers, but I still didn't know which JSC-1A plant was sequenced in each case. To resolve this, I studied [Figure 3](https://www.nature.com/articles/s42003-022-03334-8/figures/3) from [the associated paper](https://www.nature.com/articles/s42003-022-03334-8), and i_Investigation.txt metadata file (from OSD-476_metadata_OSD-476-ISA.zip). That file includes the note: 
+
+"_In Figure 3 [...] one can see the full designation of each plant used in the transcriptomes, so “P1J4JSC1A” means Plate 1, JSC plant 4, (JSC spelled out just to clarify for figure) and correlates to ‘Col-0, Leaves, JSC-1A, replicate 1’ in the transcriptome data set._"
+
+It also states:
+
+"_Although there were four representative JSC1A plants on each plate, only one of those plants (the plant in position 4 in each plate) was used from each plate for the transcriptome analyses._"
+
+Based on this information, I inferred that the JSC-1A 4 plants were sequenced in each case (check SOAPP/images/original_images/LSDS-12_morphometric-photography_Lunar_plate_map.jpg or below image for reference).  
+
+
+<p align="center">
+  <img src="https://github.com/AnnaLew/LunarRegolith/blob/main/SOAPP/images/original_images/LSDS-12_morphometric-photography_Lunar_plate_map.jpg?raw=true" alt="Plate map" width="500"/>
+</p>
+
+
+**Why are there only 16 sequences available when 28 plants were grown?**
+
+Only one plant per regolith type was sequenced on each of the four plates, resulting in:
+
+- 4 × JSC-1A (position 4)
+- 4 × Apollo 11
+- 4 × Apollo 12
+- 4 × Apollo 17
+
+  = 16 sequenced samples
+
+Note: An additional four samples associated with JSC-1A-grown plants were sequenced (GSM5691027, GSM5691028, GSM5691029, GSM5691030), but their exact plant origin could not be confidently determined from the available metadata.
 
 ### Step 4: CRISP analysis 
 
