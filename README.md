@@ -64,8 +64,107 @@ Only one plant per regolith type was sequenced on each of the four plates, resul
 
 Note: An additional four samples associated with JSC-1A-grown plants were sequenced (GSM5691027, GSM5691028, GSM5691029, GSM5691030), but their exact plant origin could not be confidently determined from the available metadata.
 
-### Step 4: CRISP analysis 
+#### Creating a SOAPP-RNAseq combined file 
 
-TBD
+You can run the following line to generate the combined file:
+
+```bash
+python 1_combine_and_sum.py
+```
+
+The output file is in RNAseq/combined_with_rna_sums.csv. Note that RNAseq data is only available for 16 plants and therefore only these 16 are included in this file. 
+
+### Step 4: CRISP v1 analysis 
+
+This is some nonsense of me testing
+
+```bash
+# 1) Fresh env with an old-enough Python
+CONDA_SUBDIR=osx-64 conda create -n crisp-py37 python=3.7 -y
+conda activate crisp-py37
+conda config --env --set subdir osx-64
+
+# 2) Make pip/setuptools/wheel compatible with the era
+pip install "pip==20.3.4" "setuptools==58.5.3" "wheel==0.38.4"
+
+# 3) Pre-install the hard compiled deps via conda (avoids building numpy)
+conda install -y -c conda-forge "numpy==1.17.3" "bottleneck==1.3.2" "scipy==1.5.*" "pandas==1.1.*"
+
+# 4) Now install the repo's requirements without trying to replace those deps
+cd crispv1.1
+python -c "import platform; print(platform.machine())"   # should print x86_64
+
+# conda way (recommended)
+CONDA_SUBDIR=osx-64 conda install -n crisp-py37 -c conda-forge "tbb=2020.2" -y
+
+# OR pip fallback if you prefer
+pip install "tbb==2021.6.0"
+
+# create a copy of requirements without the TBB line
+grep -v -i '^tbb==' requirements.txt > requirements.no-tbb.txt
+
+# now continue your approach (no deps, since we preinstalled the tricky ones)
+pip install --no-deps -r requirements.no-tbb.txt
+```
+
+After that run the code to create the CRISP input files
+
+```bash
+python make_crisp_input.py
+```
+
+```bash
+conda activate crisp-py37
+
+pip install \
+  "attrs==21.4.0" \
+  "importlib-metadata==4.13.0" \
+  "packaging==21.3" \
+  "python-dateutil==2.8.2" \
+  "requests==2.28.2" \
+  "typing-extensions==4.1.1" \
+  "protobuf<4" \
+  "watchdog==2.1.9" \
+  toml
+
+pip install decorator==5.1.1
+
+pip install "jinja2<3.1"
+
+pip install "click<8.1" "blinker==1.4" "pyarrow==5.0.0" "jsonschema<4.0" "toolz==0.11.2"
+
+pip install "networkx==2.5"
+
+pip install \
+  "networkx==2.5" \
+  "matplotlib==3.3.4" \
+  "scikit-learn==0.24.2" \
+  "statsmodels==0.12.2" \
+  "pandas==1.2.5" \
+  "seaborn==0.11.2"
+
+pip install "cryptography<37" "pyasn1==0.4.8" "google-cloud-storage==1.42.3"
+
+
+```
+
+```bash
+python 1_make_crisp_input.py \
+  --soapp_output "/Volumes/T7/2_Second_iteration_separately/LunarRegolith/SOAPP/output" \
+  --crisp_input  "/Volumes/T7/2_Second_iteration_separately/LunarRegolith/CRISP/CRISPv1/input"
+```
+
+```bash
+python 2_create_crisp_jsons.py
+```
+
+```bash
+./3_train_all.sh
+```
+
+
+
+
+
 
 
